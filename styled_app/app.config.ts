@@ -17,6 +17,13 @@ module.exports = ({ config }: ConfigContext): Partial<ExpoConfig> => {
 
   return {
     ...config,
+    slug: "bunq-hackathon",
+    extra: {
+      ...config.extra,
+      eas: {
+        projectId: "c92d3fb9-dae8-49b3-b784-e6f173e712e5"
+      }
+    },
     plugins: [
       ...existingPlugins,
       require("./plugins/withSplashScreen").withSplashScreen,

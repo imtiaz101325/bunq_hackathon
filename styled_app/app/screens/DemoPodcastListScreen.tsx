@@ -181,21 +181,6 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
           ListHeaderComponent={
             <View style={$heading}>
               <Text preset="heading" tx="demoPodcastListScreen.title" />
-              {(episodeStore.favoritesOnly || episodeStore.episodesForList.length > 0) && (
-                <View style={$toggle}>
-                  <Toggle
-                    value={episodeStore.favoritesOnly}
-                    onValueChange={() =>
-                      episodeStore.setProp("favoritesOnly", !episodeStore.favoritesOnly)
-                    }
-                    variant="switch"
-                    labelTx="demoPodcastListScreen.onlyFavorites"
-                    labelPosition="left"
-                    labelStyle={$labelStyle}
-                    accessibilityLabel={translate("demoPodcastListScreen.accessibility.switch")}
-                  />
-                </View>
-              )}
             </View>
           }
           renderItem={({ item }) => (
@@ -289,31 +274,6 @@ const EpisodeCard = observer(function EpisodeCard({
     // openLinkInBrowser(episode.enclosure.link)
   }
 
-  const ButtonLeftAccessory: ComponentType<ButtonAccessoryProps> = useMemo(
-    () =>
-      function ButtonLeftAccessory() {
-        return (
-          <View>
-            <Animated.View style={[$iconContainer, StyleSheet.absoluteFill]}>
-              <Icon
-                icon="heart"
-                size={ICON_SIZE}
-                color={colors.palette.neutral800} // dark grey
-              />
-            </Animated.View>
-            <Animated.View style={$iconContainer}>
-              <Icon
-                icon="heart"
-                size={ICON_SIZE}
-                color={colors.palette.primary400} // pink
-              />
-            </Animated.View>
-          </View>
-        )
-      },
-    [],
-  )
-
   return (
     <Card
       style={$item}
@@ -342,26 +302,6 @@ const EpisodeCard = observer(function EpisodeCard({
       }
       content={episode.transaction_description}
       RightComponent={<Image source={imageUri} style={$itemThumbnail} />}
-      FooterComponent={
-        <Button
-          // onPress={handlePressFavorite}
-          // onLongPress={handlePressFavorite}
-          style={[$favoriteButton, $unFavoriteButton]}
-          // accessibilityLabel={
-          //   isFavorite
-          //     ? translate("demoPodcastListScreen.accessibility.unfavoriteIcon")
-          //     : translate("demoPodcastListScreen.accessibility.favoriteIcon")
-          // }
-          LeftAccessory={ButtonLeftAccessory}
-        >
-          <Text
-            size="xxs"
-            // accessibilityLabel={episode.duration.accessibilityLabel}
-            weight="medium"
-            text={"what's up"}
-          />
-        </Button>
-      }
     />
   )
 })
@@ -418,24 +358,6 @@ const $metadataText: TextStyle = {
   color: colors.textDim,
   marginEnd: spacing.md,
   marginBottom: spacing.xs,
-}
-
-const $favoriteButton: ViewStyle = {
-  borderRadius: 17,
-  marginTop: spacing.md,
-  justifyContent: "flex-start",
-  backgroundColor: colors.palette.neutral300,
-  borderColor: colors.palette.neutral300,
-  paddingHorizontal: spacing.md,
-  paddingTop: spacing.xxxs,
-  paddingBottom: 0,
-  minHeight: 32,
-  alignSelf: "flex-start",
-}
-
-const $unFavoriteButton: ViewStyle = {
-  borderColor: colors.palette.primary100,
-  backgroundColor: colors.palette.primary100,
 }
 
 const $emptyState: ViewStyle = {
